@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35825.156
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XNKProgram", "XNKProgram\XNKProgram.csproj", "{AE2E747A-4C70-435F-8735-8904DE657C61}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "FileHandling", "FileHandling\FileHandling.pyproj", "{B2554E37-29F0-4AD4-8172-722AC80907D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DescriptionGenerator", "DescriptionGenerator\DescriptionGenerator.csproj", "{6165D502-1719-4654-AB5B-7F027B930484}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AE2E747A-4C70-435F-8735-8904DE657C61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE2E747A-4C70-435F-8735-8904DE657C61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE2E747A-4C70-435F-8735-8904DE657C61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE2E747A-4C70-435F-8735-8904DE657C61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2554E37-29F0-4AD4-8172-722AC80907D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2554E37-29F0-4AD4-8172-722AC80907D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6165D502-1719-4654-AB5B-7F027B930484}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6165D502-1719-4654-AB5B-7F027B930484}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6165D502-1719-4654-AB5B-7F027B930484}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6165D502-1719-4654-AB5B-7F027B930484}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1C4ECE4D-3EAA-4B80-96F4-2ACB08AE5A7E}
+	EndGlobalSection
+EndGlobal

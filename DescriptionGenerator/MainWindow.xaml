@@ -1,0 +1,139 @@
+﻿<Window
+    x:Class="DescriptionGenerator.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:DescriptionGenerator"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Excel Processor"
+    Width="800"
+    Height="550"
+    mc:Ignorable="d">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Window.Resources>
+
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!--  File Upload Section  -->
+        <GroupBox
+            Grid.Row="0"
+            Padding="10"
+            Header="Excel File">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock
+                    x:Name="FileName"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
+                    Text="No file selected" />
+                <Button
+                    x:Name="BtnUploadExcel"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Width="120"
+                    Margin="10,0,0,0"
+                    Click="BtnUploadExcel_Click"
+                    Content="Upload Excel" />
+            </Grid>
+        </GroupBox>
+
+        <!--  Output Folder Section  -->
+        <GroupBox
+            Grid.Row="1"
+            Margin="0,10,0,0"
+            Padding="10"
+            Header="Output Location">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    x:Name="OutputFolderText"
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
+                    Text="{Binding OutputFolder}" />
+                <Button
+                    x:Name="BtnSelectOutputFolder"
+                    Grid.Column="1"
+                    Width="120"
+                    Margin="10,0,0,0"
+                    Click="BtnSelectOutputFolder_Click"
+                    Content="Select Folder" />
+            </Grid>
+        </GroupBox>
+
+        <!--  Sheet Types Section  -->
+        <GroupBox
+            Grid.Row="2"
+            Margin="0,10,0,0"
+            Padding="10"
+            Header="Sheet Types">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock
+                    Grid.Row="0"
+                    Margin="0,0,0,10"
+                    IsEnabled="{Binding IsFileUploaded}"
+                    Text="Select type for each sheet:" />
+                <ScrollViewer
+                    Grid.Row="1"
+                    MaxHeight="200"
+                    VerticalScrollBarVisibility="Auto">
+                    <StackPanel x:Name="SheetsPanel" />
+                </ScrollViewer>
+            </Grid>
+        </GroupBox>
+
+        <!--  Spacer  -->
+        <Border Grid.Row="3" />
+
+        <!--  Process Button  -->
+        <Button
+            x:Name="BtnProcess"
+            Grid.Row="4"
+            Height="35"
+            Margin="0,15,0,0"
+            Click="BtnProcess_Click"
+            Content="Process Sheets"
+            IsEnabled="{Binding IsFileUploaded}" />
+
+        <!--  Status Bar  -->
+        <StatusBar
+            Grid.Row="5"
+            Height="30"
+            Margin="0,15,0,0">
+            <TextBlock x:Name="StatusText" Text="Ready" />
+            <ProgressBar
+                Width="100"
+                Height="15"
+                Margin="10,0,0,0"
+                IsIndeterminate="{Binding IsProcessing}"
+                Visibility="{Binding IsProcessing, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        </StatusBar>
+    </Grid>
+</Window>
