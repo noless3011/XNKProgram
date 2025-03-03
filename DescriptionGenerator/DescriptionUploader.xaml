@@ -1,0 +1,164 @@
+﻿<UserControl
+    x:Class="DescriptionGenerator.DescriptionUploader"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:DescriptionGenerator"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
+        <local:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisConverter" />
+    </UserControl.Resources>
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <!--  Header section  -->
+            <RowDefinition Height="*" />
+            <!--  Content section  -->
+            <RowDefinition Height="Auto" />
+            <!--  Status bar  -->
+        </Grid.RowDefinitions>
+
+        <!--  Header Section  -->
+        <TextBlock
+            Grid.Row="0"
+            Margin="0,0,0,15"
+            FontSize="20"
+            FontWeight="Bold"
+            Text="Excel Processor and Document Generator" />
+
+        <!--  Main Content  -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!--  File Selection Section  -->
+                <GroupBox
+                    Margin="0,0,0,10"
+                    Padding="10"
+                    Header="1. File Selection">
+                    <StackPanel>
+                        <Button
+                            x:Name="BtnUploadExcel"
+                            Width="150"
+                            Height="30"
+                            Margin="0,0,0,10"
+                            HorizontalAlignment="Left"
+                            Click="BtnUploadExcel_Click"
+                            Content="Upload Excel File"
+                            IsEnabled="{Binding Path=!IsProcessing}" />
+
+                        <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                            <TextBlock VerticalAlignment="Center" Text="Selected File: " />
+                            <TextBlock
+                                x:Name="FileName"
+                                VerticalAlignment="Center"
+                                Text="No file selected" />
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+
+                <!--  Output Folder Section  -->
+                <GroupBox
+                    Margin="0,0,0,10"
+                    Padding="10"
+                    Header="2. Output Location">
+                    <StackPanel>
+                        <Button
+                            x:Name="BtnSelectOutputFolder"
+                            Width="150"
+                            Height="30"
+                            Margin="0,0,0,10"
+                            HorizontalAlignment="Left"
+                            Click="BtnSelectOutputFolder_Click"
+                            Content="Select Output Folder"
+                            IsEnabled="{Binding Path=!IsProcessing}" />
+
+                        <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                            <TextBlock VerticalAlignment="Center" Text="Output Folder: " />
+                            <TextBlock
+                                x:Name="OutputFolderText"
+                                VerticalAlignment="Center"
+                                Text="{Binding OutputFolder}" />
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+
+                <!--  Sheet Configuration Section  -->
+                <GroupBox
+                    Margin="0,0,0,10"
+                    Padding="10"
+                    Header="3. Sheet Configuration">
+                    <StackPanel>
+                        <TextBlock Margin="0,0,0,10" Text="Select type for each sheet:" />
+                        <Border
+                            MaxHeight="200"
+                            Padding="10"
+                            Background="#F5F5F5"
+                            BorderBrush="#DDDDDD"
+                            BorderThickness="1">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <StackPanel x:Name="SheetsPanel">
+                                    <TextBlock
+                                        FontStyle="Italic"
+                                        Foreground="Gray"
+                                        Text="Upload an Excel file to see sheets"
+                                        Visibility="{Binding Path=IsFileUploaded, Converter={StaticResource InverseBoolToVisConverter}}" />
+                                </StackPanel>
+                            </ScrollViewer>
+                        </Border>
+                    </StackPanel>
+                </GroupBox>
+
+                <!--  Processing Section  -->
+                <GroupBox
+                    Margin="0,0,0,10"
+                    Padding="10"
+                    Header="4. Processing">
+                    <StackPanel>
+                        <Button
+                            x:Name="BtnProcess"
+                            Width="150"
+                            Height="30"
+                            Margin="0,0,0,10"
+                            HorizontalAlignment="Left"
+                            Click="BtnProcess_Click"
+                            Content="Process Excel Sheets"
+                            IsEnabled="{Binding Path=IsFileUploaded}" />
+
+                        <Button
+                            x:Name="BtnGenerateDocument"
+                            Width="150"
+                            Height="30"
+                            HorizontalAlignment="Left"
+                            Click="BtnGenerateDocument_Click"
+                            Content="Generate Document"
+                            IsEnabled="{Binding Path=IsFileUploaded}" />
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!--  Status Bar  -->
+        <Grid Grid.Row="2" Margin="0,10,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock
+                x:Name="StatusText"
+                Grid.Column="0"
+                VerticalAlignment="Center"
+                Text="Ready" />
+
+            <ProgressBar
+                Grid.Column="1"
+                Width="100"
+                Height="15"
+                IsIndeterminate="True"
+                Visibility="{Binding Path=IsProcessing, Converter={StaticResource BoolToVisConverter}}" />
+        </Grid>
+    </Grid>
+</UserControl>

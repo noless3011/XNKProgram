@@ -7,133 +7,55 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Excel Processor"
     Width="800"
-    Height="550"
+    Height="600"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-
-    <Window.Resources>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-    </Window.Resources>
-
-    <Grid Margin="15">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-
-        <!--  File Upload Section  -->
-        <GroupBox
-            Grid.Row="0"
-            Padding="10"
-            Header="Excel File">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-
-                <TextBlock
-                    x:Name="FileName"
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    VerticalAlignment="Center"
-                    Text="No file selected" />
-                <Button
-                    x:Name="BtnUploadExcel"
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    Width="120"
-                    Margin="10,0,0,0"
-                    Click="BtnUploadExcel_Click"
-                    Content="Upload Excel" />
-            </Grid>
-        </GroupBox>
-
-        <!--  Output Folder Section  -->
-        <GroupBox
-            Grid.Row="1"
-            Margin="0,10,0,0"
-            Padding="10"
-            Header="Output Location">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-
-                <TextBlock
-                    x:Name="OutputFolderText"
-                    Grid.Column="0"
-                    VerticalAlignment="Center"
-                    Text="{Binding OutputFolder}" />
-                <Button
-                    x:Name="BtnSelectOutputFolder"
-                    Grid.Column="1"
-                    Width="120"
-                    Margin="10,0,0,0"
-                    Click="BtnSelectOutputFolder_Click"
-                    Content="Select Folder" />
-            </Grid>
-        </GroupBox>
-
-        <!--  Sheet Types Section  -->
-        <GroupBox
-            Grid.Row="2"
-            Margin="0,10,0,0"
-            Padding="10"
-            Header="Sheet Types">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-
-                <TextBlock
-                    Grid.Row="0"
-                    Margin="0,0,0,10"
-                    IsEnabled="{Binding IsFileUploaded}"
-                    Text="Select type for each sheet:" />
-                <ScrollViewer
-                    Grid.Row="1"
-                    MaxHeight="200"
-                    VerticalScrollBarVisibility="Auto">
-                    <StackPanel x:Name="SheetsPanel" />
-                </ScrollViewer>
-            </Grid>
-        </GroupBox>
-
-        <!--  Spacer  -->
-        <Border Grid.Row="3" />
-
-        <!--  Process Button  -->
-        <Button
-            x:Name="BtnProcess"
-            Grid.Row="4"
-            Height="35"
-            Margin="0,15,0,0"
-            Click="BtnProcess_Click"
-            Content="Process Sheets"
-            IsEnabled="{Binding IsFileUploaded}" />
-
-        <!--  Status Bar  -->
-        <StatusBar
-            Grid.Row="5"
-            Height="30"
-            Margin="0,15,0,0">
-            <TextBlock x:Name="StatusText" Text="Ready" />
-            <ProgressBar
-                Width="100"
-                Height="15"
-                Margin="10,0,0,0"
-                IsIndeterminate="{Binding IsProcessing}"
-                Visibility="{Binding IsProcessing, Converter={StaticResource BooleanToVisibilityConverter}}" />
-        </StatusBar>
+    <Grid>
+        <TabControl TabStripPlacement="Left">
+            <TabControl.Resources>
+                <Style TargetType="TabItem">
+                    <Setter Property="Background" Value="#FFFFFF" />
+                    <Setter Property="Foreground" Value="#2D2D30" />
+                    <Setter Property="BorderThickness" Value="0" />
+                    <Setter Property="Padding" Value="8,5" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type TabItem}">
+                                <Border
+                                    Name="Border"
+                                    Padding="{TemplateBinding Padding}"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                    <ContentPresenter ContentSource="Header" />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="Border" Property="Background" Value="#DCDCDC" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="HeaderTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <TextBlock Foreground="{Binding RelativeSource={RelativeSource AncestorType=TabItem}, Path=Foreground}" Text="{Binding}">
+                                    <TextBlock.LayoutTransform>
+                                        <RotateTransform Angle="90" />
+                                    </TextBlock.LayoutTransform>
+                                </TextBlock>
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Resources>
+            <TabItem Header="Processor">
+                <local:DescriptionUploader />
+            </TabItem>
+            <TabItem Header="Result">
+                <local:ClassDiagramView x:Name="diagramDisplay" JsonData="{Binding DiagramJson}" />
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

@@ -9,6 +9,8 @@ from flask import Flask, request, jsonify, send_from_directory
 import pythoncom
 from werkzeug.utils import secure_filename
 
+
+
 app = Flask(__name__)
 
 # Configuration for file uploads
@@ -381,6 +383,44 @@ def get_sheets(file_id):
         "file_id": file_id,
         "sheets": sheet_names
     })
+from DocumentGeneration import DocumentGenerator
+# Configurate for the document generator
+generator = DocumentGenerator(api_key="AIzaSyCBmnvIxJlKIafCAqL6JUJQZjNGqDCW6dk")
+
+
+@app.route('/generate-document', methods=['POST', 'GET'])
+def generate_document():
+    """
+    Generate a document from uploaded data
+    
+    Expected JSON payload:
+    {
+        "data_dir": "/path/to/data",
+        "output_file": "/path/to/output/file"
+    }
+    """
+    try:
+        data = request.json
+        
+        # Validate required fields
+        if not all(key in data for key in ['data_dir', 'output_file']):
+            return jsonify({
+                "error": "Missing required fields. Required: data_dir, output_file"
+            }), 400
+        
+        # Generate document
+        documentation = generator.generate(data['data_dir'], data['output_file'])
+        
+        return jsonify({
+            "status": "success",
+            "message": "Document generated successfully",
+            "output_file": data['output_file'],
+            "length": len(documentation)
+        })
+    
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
