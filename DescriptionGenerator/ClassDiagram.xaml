@@ -1,0 +1,146 @@
+﻿<UserControl
+    x:Class="DescriptionGenerator.ClassDiagram"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:DescriptionGenerator"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:msagl="clr-namespace:Microsoft.Msagl.GraphViewerGdi;assembly=Microsoft.Msagl.GraphViewerGdi"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--  Top panel with controls  -->
+        <StackPanel
+            Grid.Row="0"
+            Margin="10"
+            Orientation="Horizontal">
+            <Button
+                x:Name="btnOpenJson"
+                Margin="0,0,10,0"
+                Padding="10,5"
+                Click="btnOpenJson_Click"
+                Content="Open JSON" />
+            <Button
+                x:Name="btnExportImage"
+                Margin="0,0,10,0"
+                Padding="10,5"
+                Click="btnExportImage_Click"
+                Content="Export Image" />
+            <ComboBox
+                x:Name="cmbLayout"
+                Width="150"
+                Margin="0,0,10,0"
+                SelectedIndex="0"
+                SelectionChanged="cmbLayout_SelectionChanged">
+                <ComboBoxItem Content="Sugiyama Layout" />
+                <ComboBoxItem Content="Force Directed" />
+                <ComboBoxItem Content="MDS Layout" />
+            </ComboBox>
+            <CheckBox
+                x:Name="chkShowInheritance"
+                Margin="10,0"
+                VerticalAlignment="Center"
+                Checked="RelationshipFilter_Changed"
+                Content="Inheritance"
+                IsChecked="True"
+                Unchecked="RelationshipFilter_Changed" />
+            <CheckBox
+                x:Name="chkShowComposition"
+                Margin="10,0"
+                VerticalAlignment="Center"
+                Checked="RelationshipFilter_Changed"
+                Content="Composition"
+                IsChecked="True"
+                Unchecked="RelationshipFilter_Changed" />
+            <CheckBox
+                x:Name="chkShowAggregation"
+                Margin="10,0"
+                VerticalAlignment="Center"
+                Checked="RelationshipFilter_Changed"
+                Content="Aggregation"
+                IsChecked="True"
+                Unchecked="RelationshipFilter_Changed" />
+            <CheckBox
+                x:Name="chkShowAssociation"
+                Margin="10,0"
+                VerticalAlignment="Center"
+                Checked="RelationshipFilter_Changed"
+                Content="Association"
+                IsChecked="True"
+                Unchecked="RelationshipFilter_Changed" />
+            <CheckBox
+                x:Name="chkShowDependency"
+                Margin="10,0"
+                VerticalAlignment="Center"
+                Checked="RelationshipFilter_Changed"
+                Content="Dependency"
+                IsChecked="True"
+                Unchecked="RelationshipFilter_Changed" />
+        </StackPanel>
+
+        <!--  Main diagram display area  -->
+        <Border
+            Grid.Row="1"
+            Margin="10"
+            BorderBrush="#CCCCCC"
+            BorderThickness="1">
+            <Grid>
+                <!--  This ContentPresenter will host our MSAGL GraphViewer  -->
+                <WindowsFormsHost x:Name="contentPresenter" />
+                <!--  Zoom controls  -->
+                <StackPanel
+                    Margin="10"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Orientation="Horizontal">
+                    <Button
+                        x:Name="btnZoomIn"
+                        Width="30"
+                        Height="30"
+                        Margin="5"
+                        Click="btnZoomIn_Click"
+                        Content="+" />
+                    <Button
+                        x:Name="btnZoomOut"
+                        Width="30"
+                        Height="30"
+                        Margin="5"
+                        Click="btnZoomOut_Click"
+                        Content="-" />
+                    <Button
+                        x:Name="btnZoomFit"
+                        Width="40"
+                        Height="30"
+                        Margin="5"
+                        Click="btnZoomFit_Click"
+                        Content="Fit" />
+                </StackPanel>
+
+                <!--  Loading indicator  -->
+                <Grid
+                    x:Name="loadingPanel"
+                    Background="#80000000"
+                    Visibility="Collapsed">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            FontSize="18"
+                            Foreground="White"
+                            Text="Generating Diagram..." />
+                        <ProgressBar
+                            Width="200"
+                            Height="15"
+                            Margin="0,10,0,0"
+                            IsIndeterminate="True" />
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

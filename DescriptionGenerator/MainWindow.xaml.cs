@@ -29,67 +29,92 @@ public partial class MainWindow : Window
         DiagramJson = @"
 {
   ""Diagram"": {
-    ""DiagramName"": ""ExportImportProgramClassDiagram"",
+    ""DiagramName"": ""ManufacturingDataSystem"",
     ""Classes"": [
       {
-        ""ClassName"": ""UserManagement"",
+        ""ClassName"": ""User"",
         ""ClassType"": ""Class"",
         ""IsAbstract"": false,
+        ""Attributes"": [
+          {
+            ""AttributeName"": ""email"",
+            ""AttributeType"": ""String"",
+            ""IsStatic"": false,
+            ""Visibility"": ""private""
+          },
+          {
+            ""AttributeName"": ""passwordHash"",
+            ""AttributeType"": ""String"",
+            ""IsStatic"": false,
+            ""Visibility"": ""private""
+          },
+          {
+            ""AttributeName"": ""department"",
+            ""AttributeType"": ""String"",
+            ""IsStatic"": false,
+            ""Visibility"": ""private""
+          },
+          {
+            ""AttributeName"": ""phoneNumber"",
+            ""AttributeType"": ""String"",
+            ""IsStatic"": false,
+            ""Visibility"": ""private""
+          },
+          {
+            ""AttributeName"": ""role"",
+            ""AttributeType"": ""String"",
+            ""IsStatic"": false,
+            ""Visibility"": ""private""
+          }
+        ],
         ""Methods"": [
           {
             ""IsStatic"": false,
-            ""MethodName"": ""addAccount"",
-            ""ReturnType"": ""void"",
+            ""MethodName"": ""getEmail"",
+            ""ReturnType"": ""String"",
             ""Visibility"": ""public""
           },
           {
             ""IsStatic"": false,
-            ""MethodName"": ""editAccount"",
-            ""ReturnType"": ""void"",
+            ""MethodName"": ""getDepartment"",
+            ""ReturnType"": ""String"",
             ""Visibility"": ""public""
           },
           {
             ""IsStatic"": false,
-            ""MethodName"": ""deleteAccount"",
-            ""ReturnType"": ""void"",
+            ""MethodName"": ""getPhoneNumber"",
+            ""ReturnType"": ""String"",
             ""Visibility"": ""public""
           },
           {
             ""IsStatic"": false,
-            ""MethodName"": ""forgotPassword"",
-            ""ReturnType"": ""void"",
+            ""MethodName"": ""getRole"",
+            ""ReturnType"": ""String"",
             ""Visibility"": ""public""
-          },
+          }
+        ]
+      },
+      {
+        ""ClassName"": ""AuthenticationService"",
+        ""ClassType"": ""Class"",
+        ""IsAbstract"": false,
+        ""Attributes"": [
+          {
+            ""AttributeName"": ""userRepository"",
+            ""AttributeType"": ""UserRepository"",
+            ""IsStatic"": false,
+            ""Visibility"": ""private""
+          }
+        ],
+        ""Methods"": [
           {
             ""IsStatic"": false,
-            ""MethodName"": ""changePassword"",
-            ""ReturnType"": ""void"",
-            ""Visibility"": ""public""
-          },
-          {
-            ""IsStatic"": false,
-            ""MethodName"": ""assignPermissions"",
-            ""ReturnType"": ""void"",
+            ""MethodName"": ""authenticate"",
+            ""ReturnType"": ""User"",
             ""Visibility"": ""public"",
             ""Parameters"": [
               {
-                ""ParameterName"": ""user"",
-                ""ParameterType"": ""User""
-              },
-              {
-                ""ParameterName"": ""permissions"",
-                ""ParameterType"": ""List<String>""
-              }
-            ]
-          },
-          {
-            ""IsStatic"": false,
-            ""MethodName"": ""login"",
-            ""ReturnType"": ""boolean"",
-            ""Visibility"": ""public"",
-            ""Parameters"": [
-              {
-                ""ParameterName"": ""username"",
+                ""ParameterName"": ""email"",
                 ""ParameterType"": ""String""
               },
               {
@@ -97,314 +122,331 @@ public partial class MainWindow : Window
                 ""ParameterType"": ""String""
               }
             ]
+          },
+          {
+            ""IsStatic"": false,
+            ""MethodName"": ""hashPassword"",
+            ""ReturnType"": ""String"",
+            ""Visibility"": ""private"",
+            ""Parameters"": [
+              {
+                ""ParameterName"": ""password"",
+                ""ParameterType"": ""String""
+              }
+            ]
+          },
+          {
+            ""IsStatic"": false,
+            ""MethodName"": ""verifyPassword"",
+            ""ReturnType"": ""boolean"",
+            ""Visibility"": ""private"",
+            ""Parameters"": [
+              {
+                ""ParameterName"": ""password"",
+                ""ParameterType"": ""String""
+              },
+              {
+                ""ParameterName"": ""hash"",
+                ""ParameterType"": ""String""
+              }
+            ]
+          },
+          {
+            ""IsStatic"": false,
+            ""MethodName"": ""requestPasswordReset"",
+            ""ReturnType"": ""void"",
+            ""Visibility"": ""public"",
+            ""Parameters"": [
+              {
+                ""ParameterName"": ""email"",
+                ""ParameterType"": ""String""
+              }
+            ]
+          },
+          {
+            ""IsStatic"": false,
+            ""MethodName"": ""resetPassword"",
+            ""ReturnType"": ""boolean"",
+            ""Visibility"": ""public"",
+            ""Parameters"": [
+              {
+                ""ParameterName"": ""email"",
+                ""ParameterType"": ""String""
+              },
+              {
+                ""ParameterName"": ""resetToken"",
+                ""ParameterType"": ""String""
+              },
+              {
+                ""ParameterName"": ""newPassword"",
+                ""ParameterType"": ""String""
+              }
+            ]
+          },
+          {
+            ""IsStatic"": false,
+            ""MethodName"": ""registerUser"",
+            ""ReturnType"": ""User"",
+            ""Visibility"": ""public"",
+            ""Parameters"": [
+              {
+                ""ParameterName"": ""email"",
+                ""ParameterType"": ""String""
+              },
+              {
+                ""ParameterName"": ""password"",
+                ""ParameterType"": ""String""
+              },
+              {
+                ""ParameterName"": ""department"",
+                ""ParameterType"": ""String""
+              },
+              {
+                ""ParameterName"": ""phoneNumber"",
+                ""ParameterType"": ""String""
+              },
+              {
+                ""ParameterName"": ""role"",
+                ""ParameterType"": ""String""
+              }
+            ]
           }
         ]
       },
       {
-        ""ClassName"": ""Home"",
-        ""ClassType"": ""Class"",
-        ""IsAbstract"": false
-      },
-      {
-        ""ClassName"": ""DataImport"",
+        ""ClassName"": ""UserRepository"",
         ""ClassType"": ""Class"",
         ""IsAbstract"": false,
         ""Methods"": [
           {
             ""IsStatic"": false,
-            ""MethodName"": ""connectToERP"",
+            ""MethodName"": ""getUserByEmail"",
+            ""ReturnType"": ""User"",
+            ""Visibility"": ""public"",
+            ""Parameters"": [
+              {
+                ""ParameterName"": ""email"",
+                ""ParameterType"": ""String""
+              }
+            ]
+          },
+          {
+            ""IsStatic"": false,
+            ""MethodName"": ""saveUser"",
             ""ReturnType"": ""void"",
             ""Visibility"": ""public"",
             ""Parameters"": [
               {
-                ""ParameterName"": ""apiEndpoint"",
-                ""ParameterType"": ""String""
+                ""ParameterName"": ""user"",
+                ""ParameterType"": ""User""
               }
             ]
           },
           {
             ""IsStatic"": false,
-            ""MethodName"": ""importExcel"",
-            ""ReturnType"": ""DataSet"",
+            ""MethodName"": ""updateUser"",
+            ""ReturnType"": ""void"",
             ""Visibility"": ""public"",
             ""Parameters"": [
               {
-                ""ParameterName"": ""filePath"",
-                ""ParameterType"": ""String""
+                ""ParameterName"": ""user"",
+                ""ParameterType"": ""User""
               }
             ]
-          },
-          {
-            ""IsStatic"": false,
-            ""MethodName"": ""loadMCData"",
-            ""ReturnType"": ""DataSet"",
-            ""Visibility"": ""public"",
-            ""Parameters"": [
-              {
-                ""ParameterName"": ""filePath"",
-                ""ParameterType"": ""String""
-              }
-            ]
-          },
-          {
-            ""IsStatic"": false,
-            ""MethodName"": ""loadFGData"",
-            ""ReturnType"": ""DataSet"",
-            ""Visibility"": ""public"",
-            ""Parameters"": [
-              {
-                ""ParameterName"": ""filePath"",
-                ""ParameterType"": ""String""
-              }
-            ]
-          },
-          {
-            ""IsStatic"": false,
-            ""MethodName"": ""loadSeizoData"",
-            ""ReturnType"": ""DataSet"",
-            ""Visibility"": ""public"",
-            ""Parameters"": [
-              {
-                ""ParameterName"": ""filePath"",
-                ""ParameterType"": ""String""
-              }
-            ]
-          },
-          {
-            ""IsStatic"": false,
-            ""MethodName"": ""loadStandardBOM"",
-            ""ReturnType"": ""DataSet"",
-            ""Visibility"": ""public""
-          },
-          {
-            ""IsStatic"": false,
-            ""MethodName"": ""loadJobBOM"",
-            ""ReturnType"": ""DataSet"",
-            ""Visibility"": ""public""
           }
         ]
       },
       {
-        ""ClassName"": ""DataProcessing"",
+        ""ClassName"": ""DataProcessingService"",
+        ""ClassType"": ""Class"",
+        ""IsAbstract"": false,
+        ""Attributes"": [
+          {
+            ""AttributeName"": ""materialProcessor"",
+            ""AttributeType"": ""MaterialProcessor"",
+            ""IsStatic"": false,
+            ""Visibility"": ""private""
+          },
+          {
+            ""AttributeName"": ""finishedGoodsProcessor"",
+            ""AttributeType"": ""FinishedGoodsProcessor"",
+            ""IsStatic"": false,
+            ""Visibility"": ""private""
+          },
+          {
+            ""AttributeName"": ""seizoProcessor"",
+            ""AttributeType"": ""SeizoProcessor"",
+            ""IsStatic"": false,
+            ""Visibility"": ""private""
+          }
+        ],
+        ""Methods"": [
+          {
+            ""IsStatic"": false,
+            ""MethodName"": ""processData"",
+            ""ReturnType"": ""Map<String, DataSet>"",
+            ""Visibility"": ""public"",
+            ""Parameters"": [
+              {
+                ""ParameterName"": ""dataCategory"",
+                ""ParameterType"": ""String""
+              },
+              {
+                ""ParameterName"": ""inputData"",
+                ""ParameterType"": ""DataSet""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        ""ClassName"": ""MaterialProcessor"",
         ""ClassType"": ""Class"",
         ""IsAbstract"": false,
         ""Methods"": [
           {
             ""IsStatic"": false,
-            ""MethodName"": ""saveToSoftwareSystem"",
-            ""ReturnType"": ""void"",
+            ""MethodName"": ""process"",
+            ""ReturnType"": ""DataSet"",
             ""Visibility"": ""public"",
             ""Parameters"": [
+              {
+                ""ParameterName"": ""inputData"",
+                ""ParameterType"": ""DataSet""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        ""ClassName"": ""FinishedGoodsProcessor"",
+        ""ClassType"": ""Class"",
+        ""IsAbstract"": false,
+        ""Methods"": [
+          {
+            ""IsStatic"": false,
+            ""MethodName"": ""process"",
+            ""ReturnType"": ""DataSet"",
+            ""Visibility"": ""public"",
+            ""Parameters"": [
+              {
+                ""ParameterName"": ""inputData"",
+                ""ParameterType"": ""DataSet""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        ""ClassName"": ""SeizoProcessor"",
+        ""ClassType"": ""Class"",
+        ""IsAbstract"": false,
+        ""Methods"": [
+          {
+            ""IsStatic"": false,
+            ""MethodName"": ""process"",
+            ""ReturnType"": ""DataSet"",
+            ""Visibility"": ""public"",
+            ""Parameters"": [
+              {
+                ""ParameterName"": ""inputData"",
+                ""ParameterType"": ""DataSet""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        ""ClassName"": ""ReportGenerator"",
+        ""ClassType"": ""Class"",
+        ""IsAbstract"": false,
+        ""Methods"": [
+          {
+            ""IsStatic"": false,
+            ""MethodName"": ""generateReport"",
+            ""ReturnType"": ""Report"",
+            ""Visibility"": ""public"",
+            ""Parameters"": [
+              {
+                ""ParameterName"": ""reportType"",
+                ""ParameterType"": ""String""
+              },
               {
                 ""ParameterName"": ""data"",
                 ""ParameterType"": ""DataSet""
               }
             ]
-          },
-          {
-            ""IsStatic"": false,
-            ""MethodName"": ""processMCData"",
-            ""ReturnType"": ""DataSet"",
-            ""Visibility"": ""public"",
-            ""Parameters"": [
-              {
-                ""ParameterName"": ""mcData"",
-                ""ParameterType"": ""DataSet""
-              }
-            ]
-          },
-          {
-            ""IsStatic"": false,
-            ""MethodName"": ""processFGData"",
-            ""ReturnType"": ""DataSet"",
-            ""Visibility"": ""public"",
-            ""Parameters"": [
-              {
-                ""ParameterName"": ""fgData"",
-                ""ParameterType"": ""DataSet""
-              }
-            ]
-          },
-          {
-            ""IsStatic"": false,
-            ""MethodName"": ""processSeizoData"",
-            ""ReturnType"": ""DataSet"",
-            ""Visibility"": ""public"",
-            ""Parameters"": [
-              {
-                ""ParameterName"": ""seizoData"",
-                ""ParameterType"": ""DataSet""
-              }
-            ]
-          },
-          {
-            ""IsStatic"": false,
-            ""MethodName"": ""processStandardBOM"",
-            ""ReturnType"": ""DataSet"",
-            ""Visibility"": ""public"",
-            ""Parameters"": [
-              {
-                ""ParameterName"": ""standardBOM"",
-                ""ParameterType"": ""DataSet""
-              }
-            ]
-          },
-          {
-            ""IsStatic"": false,
-            ""MethodName"": ""processJobBOM"",
-            ""ReturnType"": ""DataSet"",
-            ""Visibility"": ""public"",
-            ""Parameters"": [
-              {
-                ""ParameterName"": ""jobBOM"",
-                ""ParameterType"": ""DataSet""
-              }
-            ]
           }
         ]
       },
       {
-        ""ClassName"": ""CustomsReport"",
+        ""ClassName"": ""BOMService"",
         ""ClassType"": ""Class"",
         ""IsAbstract"": false,
-        ""Methods"": [
+        ""Attributes"": [
           {
+            ""AttributeName"": ""bomRepository"",
+            ""AttributeType"": ""BOMRepository"",
             ""IsStatic"": false,
-            ""MethodName"": ""aggregateReportData"",
-            ""ReturnType"": ""ReportData"",
-            ""Visibility"": ""public"",
-            ""Parameters"": [
-              {
-                ""ParameterName"": ""searchCriteria"",
-                ""ParameterType"": ""SearchCriteria""
-              }
-            ]
+            ""Visibility"": ""private""
           }
-        ]
-      },
-      {
-        ""ClassName"": ""BOMComparison"",
-        ""ClassType"": ""Class"",
-        ""IsAbstract"": false,
+        ],
         ""Methods"": [
           {
             ""IsStatic"": false,
-            ""MethodName"": ""aggregateBOMData"",
-            ""ReturnType"": ""ReportData"",
+            ""MethodName"": ""getBOM"",
+            ""ReturnType"": ""DataSet"",
             ""Visibility"": ""public"",
             ""Parameters"": [
               {
-                ""ParameterName"": ""searchCriteria"",
-                ""ParameterType"": ""SearchCriteria""
-              }
-            ]
-          },
-          {
-            ""IsStatic"": false,
-            ""MethodName"": ""compareBOMs"",
-            ""ReturnType"": ""ComparisonResult"",
-            ""Visibility"": ""public"",
-            ""Parameters"": [
-              {
-                ""ParameterName"": ""standardBOM"",
-                ""ParameterType"": ""DataSet""
+                ""ParameterName"": ""bomType"",
+                ""ParameterType"": ""String""
               },
               {
-                ""ParameterName"": ""jobBOM"",
-                ""ParameterType"": ""DataSet""
-              }
-            ]
-          }
-        ]
-      },
-      {
-        ""ClassName"": ""ReportExport"",
-        ""ClassType"": ""Class"",
-        ""IsAbstract"": false,
-        ""Methods"": [
-          {
-            ""IsStatic"": false,
-            ""MethodName"": ""exportKVAReport"",
-            ""ReturnType"": ""void"",
-            ""Visibility"": ""public"",
-            ""Parameters"": [
-              {
-                ""ParameterName"": ""reportData"",
-                ""ParameterType"": ""ReportData""
-              },
-              {
-                ""ParameterName"": ""filePath"",
+                ""ParameterName"": ""identifier"",
                 ""ParameterType"": ""String""
               }
             ]
           },
           {
             ""IsStatic"": false,
-            ""MethodName"": ""exportCustomsReport15"",
-            ""ReturnType"": ""void"",
-            ""Visibility"": ""public"",
-            ""Parameters"": [
-              {
-                ""ParameterName"": ""reportData"",
-                ""ParameterType"": ""ReportData""
-              },
-              {
-                ""ParameterName"": ""filePath"",
-                ""ParameterType"": ""String""
-              }
-            ]
-          },
-          {
-            ""IsStatic"": false,
-            ""MethodName"": ""exportCustomsReport15a"",
-            ""ReturnType"": ""void"",
-            ""Visibility"": ""public"",
-            ""Parameters"": [
-              {
-                ""ParameterName"": ""reportData"",
-                ""ParameterType"": ""ReportData""
-              },
-              {
-                ""ParameterName"": ""filePath"",
-                ""ParameterType"": ""String""
-              }
-            ]
-          }
-        ]
-      },
-      {
-        ""ClassName"": ""BOMExport"",
-        ""ClassType"": ""Class"",
-        ""IsAbstract"": false,
-        ""Methods"": [
-          {
-            ""IsStatic"": false,
-            ""MethodName"": ""exportNormBOM"",
-            ""ReturnType"": ""void"",
+            ""MethodName"": ""generateKVAReport"",
+            ""ReturnType"": ""Report"",
             ""Visibility"": ""public"",
             ""Parameters"": [
               {
                 ""ParameterName"": ""bomData"",
                 ""ParameterType"": ""DataSet""
-              },
+              }
+            ]
+          }
+        ]
+      },
+      {
+        ""ClassName"": ""BOMRepository"",
+        ""ClassType"": ""Class"",
+        ""IsAbstract"": false,
+        ""Methods"": [
+          {
+            ""IsStatic"": false,
+            ""MethodName"": ""getTechnicalBOM"",
+            ""ReturnType"": ""DataSet"",
+            ""Visibility"": ""public"",
+            ""Parameters"": [
               {
-                ""ParameterName"": ""filePath"",
+                ""ParameterName"": ""productID"",
                 ""ParameterType"": ""String""
               }
             ]
           },
           {
             ""IsStatic"": false,
-            ""MethodName"": ""exportBOMComparison"",
-            ""ReturnType"": ""void"",
+            ""MethodName"": ""getActualBOM"",
+            ""ReturnType"": ""DataSet"",
             ""Visibility"": ""public"",
             ""Parameters"": [
               {
-                ""ParameterName"": ""comparisonResult"",
-                ""ParameterType"": ""ComparisonResult""
-              },
-              {
-                ""ParameterName"": ""filePath"",
+                ""ParameterName"": ""jobID"",
                 ""ParameterType"": ""String""
               }
             ]
@@ -412,52 +454,180 @@ public partial class MainWindow : Window
         ]
       },
       {
-        ""ClassName"": ""MasterDataManagement"",
+        ""ClassName"": ""APIService"",
         ""ClassType"": ""Class"",
         ""IsAbstract"": false,
-        ""Methods"": [
+        ""Attributes"": [
           {
+            ""AttributeName"": ""apiLink"",
+            ""AttributeType"": ""String"",
             ""IsStatic"": false,
-            ""MethodName"": ""manageCodes"",
-            ""ReturnType"": ""void"",
-            ""Visibility"": ""public"",
-            ""Parameters"": [
-              {
-                ""ParameterName"": ""codeType"",
-                ""ParameterType"": ""String""
-              }
-            ]
+            ""Visibility"": ""private""
+          },
+          {
+            ""AttributeName"": ""apiUser"",
+            ""AttributeType"": ""String"",
+            ""IsStatic"": false,
+            ""Visibility"": ""private""
+          },
+          {
+            ""AttributeName"": ""apiPassword"",
+            ""AttributeType"": ""String"",
+            ""IsStatic"": false,
+            ""Visibility"": ""private""
+          },
+          {
+            ""AttributeName"": ""apiToken"",
+            ""AttributeType"": ""String"",
+            ""IsStatic"": false,
+            ""Visibility"": ""private""
           }
-        ]
-      },
-      {
-        ""ClassName"": ""CodeConversion"",
-        ""ClassType"": ""Class"",
-        ""IsAbstract"": false,
+        ],
         ""Methods"": [
           {
             ""IsStatic"": false,
-            ""MethodName"": ""convertCode"",
+            ""MethodName"": ""authenticateAndGetToken"",
+            ""ReturnType"": ""String"",
+            ""Visibility"": ""public""
+          },
+          {
+            ""IsStatic"": false,
+            ""MethodName"": ""get"",
             ""ReturnType"": ""String"",
             ""Visibility"": ""public"",
             ""Parameters"": [
               {
-                ""ParameterName"": ""sourceCode"",
+                ""ParameterName"": ""endpoint"",
+                ""ParameterType"": ""String""
+              }
+            ]
+          },
+          {
+            ""IsStatic"": false,
+            ""MethodName"": ""post"",
+            ""ReturnType"": ""String"",
+            ""Visibility"": ""public"",
+            ""Parameters"": [
+              {
+                ""ParameterName"": ""endpoint"",
                 ""ParameterType"": ""String""
               },
               {
-                ""ParameterName"": ""targetCodeType"",
+                ""ParameterName"": ""data"",
+                ""ParameterType"": ""String""
+              }
+            ]
+          },
+          {
+            ""IsStatic"": false,
+            ""MethodName"": ""setApiCredentials"",
+            ""ReturnType"": ""void"",
+            ""Visibility"": ""public"",
+            ""Parameters"": [
+              {
+                ""ParameterName"": ""apiLink"",
+                ""ParameterType"": ""String""
+              },
+              {
+                ""ParameterName"": ""apiUser"",
+                ""ParameterType"": ""String""
+              },
+              {
+                ""ParameterName"": ""apiPassword"",
                 ""ParameterType"": ""String""
               }
             ]
           }
         ]
+      },
+      {
+        ""ClassName"": ""DataSet"",
+        ""ClassType"": ""Class"",
+        ""IsAbstract"": true
+      },
+      {
+        ""ClassName"": ""Report"",
+        ""ClassType"": ""Class"",
+        ""IsAbstract"": true
       }
     ],
-    ""Relationships"": []
+    ""Relationships"": [
+      {
+        ""RelationshipType"": ""Association"",
+        ""SourceClass"": ""AuthenticationService"",
+        ""TargetClass"": ""User"",
+        ""RelationshipName"": ""authenticates"",
+        ""SourceCardinality"": ""1"",
+        ""TargetCardinality"": ""1""
+      },
+      {
+        ""RelationshipType"": ""Dependency"",
+        ""SourceClass"": ""ReportGenerator"",
+        ""TargetClass"": ""DataSet"",
+        ""RelationshipName"": ""uses"",
+        ""SourceCardinality"": ""1"",
+        ""TargetCardinality"": ""1""
+      },
+      {
+        ""RelationshipType"": ""Dependency"",
+        ""SourceClass"": ""ReportGenerator"",
+        ""TargetClass"": ""Report"",
+        ""RelationshipName"": ""generates"",
+        ""SourceCardinality"": ""1"",
+        ""TargetCardinality"": ""1""
+      },
+      {
+        ""RelationshipType"": ""Association"",
+        ""SourceClass"": ""BOMService"",
+        ""TargetClass"": ""BOMRepository"",
+        ""RelationshipName"": ""uses"",
+        ""SourceCardinality"": ""1"",
+        ""TargetCardinality"": ""1""
+      },
+      {
+        ""RelationshipType"": ""Dependency"",
+        ""SourceClass"": ""BOMService"",
+        ""TargetClass"": ""Report"",
+        ""RelationshipName"": ""generates"",
+        ""SourceCardinality"": ""1"",
+        ""TargetCardinality"": ""1""
+      },
+      {
+        ""RelationshipType"": ""Composition"",
+        ""SourceClass"": ""DataProcessingService"",
+        ""TargetClass"": ""MaterialProcessor"",
+        ""RelationshipName"": ""has"",
+        ""SourceCardinality"": ""1"",
+        ""TargetCardinality"": ""1""
+      },
+      {
+        ""RelationshipType"": ""Composition"",
+        ""SourceClass"": ""DataProcessingService"",
+        ""TargetClass"": ""FinishedGoodsProcessor"",
+        ""RelationshipName"": ""has"",
+        ""SourceCardinality"": ""1"",
+        ""TargetCardinality"": ""1""
+      },
+      {
+        ""RelationshipType"": ""Composition"",
+        ""SourceClass"": ""DataProcessingService"",
+        ""TargetClass"": ""SeizoProcessor"",
+        ""RelationshipName"": ""has"",
+        ""SourceCardinality"": ""1"",
+        ""TargetCardinality"": ""1""
+      },
+      {
+        ""RelationshipType"": ""Association"",
+        ""SourceClass"": ""AuthenticationService"",
+        ""TargetClass"": ""UserRepository"",
+        ""RelationshipName"": ""uses"",
+        ""SourceCardinality"": ""1"",
+        ""TargetCardinality"": ""1""
+      }
+    ]
   }
 }
 ";
-        diagramDisplay.JsonData = DiagramJson;
+        diagramDisplay.SetJsonData(DiagramJson);
     }
 }

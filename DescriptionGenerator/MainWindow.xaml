@@ -54,7 +54,7 @@
                 <local:DescriptionUploader />
             </TabItem>
             <TabItem Header="Result">
-                <local:ClassDiagramView x:Name="diagramDisplay" JsonData="{Binding DiagramJson}" />
+                <local:ClassDiagram x:Name="diagramDisplay" />
             </TabItem>
         </TabControl>
     </Grid>
